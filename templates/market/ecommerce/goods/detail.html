@@ -1,0 +1,226 @@
+{% extends "../base.html" %}
+{% block title %}商品详情{% endblock %}
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="index.html">首页</a></li>
+    <li class="active">商品详情</li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+  <!-- BEGIN SIDEBAR -->
+  <div class="sidebar col-md-3 col-sm-5">
+    {% include '../widget-cats.html' %}
+
+    <div class="sidebar-products clearfix">
+      <h2>同类推荐</h2>
+      {% for item in similar %}
+      <div class="item">
+        <a href="item.html"><img src="{{item.firstimg}}" alt="{{item.name}}"></a>
+        <h3><a href="?id={{item.id}}">{{item.name}}</a></h3>
+        <div class="price">${{item.price}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- END SIDEBAR -->
+
+  <!-- BEGIN CONTENT -->
+  <div class="col-md-9 col-sm-7">
+    <div class="product-page">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <div class="product-main-image">
+            <img src="{{goods.firstimg}}" alt="{{goods.name}}" class="img-responsive" data-BigImgsrc="{{goods.firstimg}}">
+          </div>
+          <div class="product-other-images">
+          {% for img in goods.otherimg %}
+            <a href="{{img}}" data-fancybox="group"><img src="{{img}}"></a>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <h1>{{goods}}</h1>
+          <div class="price-availability-block clearfix">
+            <div class="price">
+              <strong><span>￥</span>{{goods.price}}</strong>
+              <!-- <em>$<span>62.00</span></em> -->
+            </div>
+            <div class="availability">
+              Availability: <strong>In Stock</strong>
+            </div>
+          </div>
+          <div class="description">
+            <p>{{goods.desc}}</p>
+          </div>
+          <div class="review">
+            <span>{{goods.view_count}} 次围观</span>
+          </div>
+          {% comment %}
+          <div class="review">
+            <input type="range" value="4" step="0.25" id="backing4">
+            <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+            </div>
+            <a href="javascript:;">7 reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;">Write a review</a>
+          </div>
+          {% endcomment %}
+          <ul class="social-icons">
+            <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
+            <li><a class="twitter" data-original-title="twitter" href="javascript:;"></a></li>
+            <li><a class="googleplus" data-original-title="googleplus" href="javascript:;"></a></li>
+            <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
+            <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
+          </ul>
+        </div>
+
+        <div class="product-page-content">
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#Description" data-toggle="tab">详细描述</a></li>
+            <li><a href="#Information" data-toggle="tab">联系信息</a></li>
+            <!-- <li><a href="#Reviews" data-toggle="tab">Reviews (2)</a></li> -->
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="Description">
+              <p><pre>{{goods.desc_detail}}</pre></p>
+            </div>
+            <div class="tab-pane fade" id="Information">
+              <table class="datasheet">
+                <tr>
+                  <th colspan="2">信息</th>
+                </tr>
+                <tr>
+                  <td class="datasheet-features-type">手机号</td>
+                  <td>{{goods.phone}}</td>
+                </tr>
+                <tr>
+                  <td class="datasheet-features-type">QQ</td>
+                  <td>{{goods.seller.userinfo.qq}}</td>
+                </tr>
+                <tr>
+                  <td class="datasheet-features-type">地址</td>
+                  <td>{{goods.location}}</td>
+                </tr>
+              </table>
+            </div>
+            {% comment %}
+            <div class="tab-pane fade" id="Reviews">
+              <!--<p>There are no reviews for this product.</p>-->
+              <div class="review-item clearfix">
+                <div class="review-item-submitted">
+                  <strong>Bob</strong>
+                  <em>30/12/2013 - 07:37</em>
+                  <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                </div>                                              
+                <div class="review-item-content">
+                    <p>Sed velit quam, auctor id semper a, hendrerit eget justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis vel arcu pulvinar dolor tempus feugiat id in orci. Phasellus sed erat leo. Donec luctus, justo eget ultricies tristique, enim mauris bibendum orci, a sodales lectus purus ut lorem.</p>
+                </div>
+              </div>
+
+              <!-- BEGIN FORM-->
+              <form action="#" class="reviews-form" role="form">
+                <h2>Write a review</h2>
+                <div class="form-group">
+                  <label for="name">Name <span class="require">*</span></label>
+                  <input type="text" class="form-control" id="name">
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="text" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                  <label for="review">Review <span class="require">*</span></label>
+                  <textarea class="form-control" rows="8" id="review"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="email">Rating</label>
+                  <input type="range" value="4" step="0.25" id="backing5">
+                  <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+                  </div>
+                </div>
+                <div class="padding-top-20">                  
+                  <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+              </form>
+              <!-- END FORM--> 
+            </div>
+            {% endcomment %}
+          </div>
+        </div>
+
+        <div class="sticker sticker-sale"></div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT -->
+</div>
+<!-- END SIDEBAR & CONTENT -->
+
+<!-- BEGIN SIMILAR PRODUCTS -->
+<div class="row margin-bottom-40">
+  <div class="col-md-12 col-sm-12">
+    <h2>热门商品</h2>
+    <div class="owl-carousel owl-carousel4">
+    {% for item in hots %}
+      <div>
+        <div class="product-item">
+          <div class="pi-img-wrapper">
+            <img src="{{item.firstimg}}" class="img-responsive" alt="{{item.name}}">
+            <div>
+              <a href="{{item.firstimg}}" class="btn btn-default" data-fancybox>Zoom</a>
+              <a href="#product-pop-up-{{item.id}}" class="btn btn-default" data-fancybox="fast-view">View</a>
+            </div>
+          </div>
+          <h3><a href="?id={{item.id}}">{{item.name}}</a></h3>
+          <div class="pi-price">${{item.price}}</div>
+          <a href="?id={{item.id}}" class="btn btn-default add2cart">详情</a>
+          <!-- <div class="sticker sticker-new"></div> -->
+        </div>
+      </div>
+
+      <!-- BEGIN fast view of a product -->
+      <div id="product-pop-up-{{item.id}}" style="display: none; width: 700px;">
+        <div class="product-page product-pop-up">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-3">
+              <div class="product-main-image">
+                <img src="{{item.firstimg}}" data-BigImgsrc="{{item.firstimg}}" alt="{{item.name}}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-9">
+              <h1>{{item.name}}</h1>
+              <div class="price-availability-block clearfix">
+                <div class="price">
+                  <strong><span>$</span>{{item.price}}</strong>
+                </div>
+              </div>
+              <div class="description">
+                <p>{{item.desc}}</p>
+              </div>
+              <div class="product-page-cart">
+                <a class="btn btn-primary" href="?id={{item.id}}">详情</a>
+              </div>
+            </div>
+            <!-- <div class="sticker sticker-sale"></div> -->
+          </div>
+        </div>
+      </div>
+      <!-- END fast view of a product -->
+    {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- END SIMILAR PRODUCTS -->
+{% endblock %}
+
+{% block css %}{{block.super}}
+<link href="{{APPSTATIC}}plugins/rateit/src/rateit.css" rel="stylesheet"><!-- for slider-range -->
+{% endblock %}
+
+{% block js %}{{block.super}}
+<script src="{{APPSTATIC}}plugins/rateit/src/jquery.rateit.js"></script><!-- for slider-range -->
+<script src="{{APPSTATIC}}plugins/zoom/jquery.zoom.min.js"></script>
+<script>
+  jQuery(function() {
+    Layout.initImageZoom();
+  });
+</script>
+{% endblock %}

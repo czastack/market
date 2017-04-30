@@ -1,0 +1,53 @@
+{% extends "./base.html" %}
+{% block title %}注册{% endblock %}
+{% block main %}
+<div class="row margin-bottom-40">
+  <!-- BEGIN SIDEBAR -->
+  <div class="sidebar col-md-3 col-sm-3">
+    <ul class="list-group margin-bottom-25 sidebar-menu">
+      <li class="list-group-item clearfix">
+        <a href="login"><i class="fa fa-angle-right"></i> 登录</a>
+      </li>
+      <li class="list-group-item clearfix">
+        <a href="forgetpwd"><i class="fa fa-angle-right"></i> 重置密码</a>
+      </li>
+    </ul>
+  </div>
+  <!-- END SIDEBAR -->
+
+  <!-- BEGIN CONTENT -->
+  <div class="col-md-9 col-sm-9">
+    <h1>创建新账户</h1>
+    <div class="content-form-page">
+      <div class="row">
+        <div class="col-md-7 col-sm-7">
+          <form class="form-horizontal" id="form" method="post">
+            {% include './login-form-fields.html' with nosubmit=True %}
+            {% include './widget-repwd.html' %}
+            <div class="row">
+              <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                <button type="submit" class="btn btn-primary">注册</button>
+                <button type="button" class="btn btn-default">取消</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-4 col-sm-4 pull-right">
+          <div class="form-info">
+            <h2><em>Important</em> Information</h2>
+            <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo quat.</p>
+
+            <p>Duis autem vel eum iriure at dolor vulputate velit esse vel molestie at dolore.</p>
+
+            <button type="button" class="btn btn-default">More details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT -->
+</div>
+{% endblock %}
+{% block js %}{{block.super}}
+  <script src="{{APPSTATIC}}ecommerce/js/form-pwd.js"></script>
+{% endblock %}

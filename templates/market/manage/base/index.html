@@ -1,0 +1,34 @@
+{% extends "./portlet.html" %}
+{% block pagetitle %}{{handler.pagetitle}}管理{% endblock %}
+{% block pagecontent %}
+<div class="table-toolbar">
+    <div class="btn-group">
+        <a class="btn green" href="add">新增 <i class="fa fa-plus"></i></a>
+    </div>
+</div>
+<div class="table-responsive container-fluid">
+    {% if data %}
+    <table class="table table-striped table-hover dataTable" id="sample_editable_1">
+        <thead>
+            <tr>
+                {% block th %}{% endblock %}
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                {% block td %}{% endblock %}
+                <td>
+                    <a class="btn btn-xs red" href="delete?id={{item.id}}">删除</a>
+                    <a class="btn btn-xs blue edit" href="update?id={{item.id}}">编辑</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div>没有数据</div>
+    {% endif %}
+</div>
+{% endblock %}

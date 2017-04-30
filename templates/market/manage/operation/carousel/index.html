@@ -1,0 +1,8 @@
+{% extends "../../base/index.html" %}
+{% block th %}<th>图片</th><th>链接</th><th>主标题</th><th>副标题</th>{% endblock %}
+{% block td %}
+    <td><img src="{{item.img}}"></td>
+    <td>{{item.url}}</td>
+    <td>{{item.h1}}</td>
+    <td>{{item.h2}}</td>
+{% endblock %}

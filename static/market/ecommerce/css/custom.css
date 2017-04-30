@@ -1,0 +1,34 @@
+/* here you can put your own css to customize and override the theme */
+.bx-default-pager {
+	display: none;
+}
+
+#fileupload .preview img {
+    max-width: 200px;
+    max-height: 200px;
+}
+#fileupload td {
+    vertical-align: middle;
+}
+#fileupload .name,
+#fileupload .size {
+    font-size: 16px;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #fff;
+    border-color: inherit;
+}
+.sticker-demand {
+	position: absolute;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    right: -16px;
+    top: 20px;
+    color: #fff;
+    width: 100px;
+    line-height: 18px;
+    text-align: center;
+}

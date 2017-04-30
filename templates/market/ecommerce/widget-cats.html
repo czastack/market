@@ -1,0 +1,22 @@
+<ul class="list-group margin-bottom-25 sidebar-menu">
+  {% for cat in cats %}
+  {% if cat.children.exists %}
+    <li class="list-group-item clearfix dropdown{%ifequal catid cat.id%} active{%endifequal%}">
+      <a href="{{APPURL}}ecommerce/goods/list?cat={{cat.id}}" class="collapsed">
+        <i class="fa fa-angle-right dropdown-toggler"></i>
+        {{cat}}
+        <i class="fa fa-angle-down dropdown-toggler"></i>
+      </a>
+      <ul class="dropdown-menu" style="display:block;">
+      {% for sub in cat.children.all %}
+        <li{%ifequal catid sub.id%} class="active"{%endifequal%}><a href="{{APPURL}}ecommerce/goods/list?cat={{sub.id}}"><i class="fa fa-circle"></i> {{sub}}</a></li>
+      {% endfor %}
+      </ul>
+    </li>
+  {% else %}
+  <li class="list-group-item clearfix{%ifequal catid cat.id%} active{%endifequal%}">
+    <a href="{{APPURL}}ecommerce/goods/list?cat={{cat.id}}"><i class="fa fa-angle-right"></i> {{cat}}</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>

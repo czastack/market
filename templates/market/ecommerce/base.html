@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN Head -->
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <meta content="" name="author">
+
+  <link href="{{APPSTATIC}}opensans/opensans.css" rel="stylesheet">
+
+  <!-- BEGIN Global styles -->
+  <link href="{{STATIC}}css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{STATIC}}font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- END Global styles -->
+
+  <!-- BEGIN Page level plugin styles -->
+  <link href="{{APPSTATIC}}plugins/fancybox/jquery.fancybox.min.css" rel="stylesheet">
+  <link href="{{APPSTATIC}}plugins/owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="{{APPSTATIC}}plugins/uniform/css/uniform.default.css" rel="stylesheet">
+  <!-- END Page level plugin styles -->
+
+  <!-- BEGIN Theme styles -->
+  <link href="{{APPSTATIC}}ecommerce/css/style-metronic.css" rel="stylesheet">
+  <link href="{{APPSTATIC}}ecommerce/css/style.css" rel="stylesheet">
+  <link href="{{APPSTATIC}}ecommerce/css/style-responsive.css" rel="stylesheet">
+  <link href="{{APPSTATIC}}ecommerce/css/custom.css" rel="stylesheet">
+  <!-- END Theme styles -->
+  {% block css %}{% endblock %}
+  <link rel="shortcut icon" href="{{APPSTATIC}}favicon.ico">
+</head>
+<!-- END Head -->
+
+<!-- BEGIN Body -->
+<body>
+  <!-- BEGIN TOP BAR -->
+  <div class="pre-header">
+    <div class="container">
+      <div>
+        <!-- BEGIN TOP BAR MENU -->
+        <div class="additional-nav">
+          <ul class="list-unstyled list-inline pull-right">
+            {%if handler.logined%}
+            <li><a href="{{APPURL}}ecommerce/account/">{{handler.user}}</a></li>
+            <li><a href="{{APPURL}}ecommerce/account/goods">我的商品</a></li>
+            {%if handler.user.is_superuser%}
+            <li><a href="{{APPURL}}manage/index/">后台管理</a></li>
+            {%endif%}
+            <li><a href="{{APPURL}}logout">退出</a></li>
+            {%else%}
+            <li><a href="{{APPURL}}login">登录</a></li>
+            {%endif%}</li>
+          </ul>
+        </div>
+        <!-- END TOP BAR MENU -->
+      </div>
+    </div>
+  </div>
+  <!-- END TOP BAR -->
+
+  <!-- BEGIN HEADER -->
+  <div role="navigation" class="navbar header no-margin">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <a href="{{APPURL}}ecommerce/" class="navbar-brand"><img src="{{APPSTATIC}}ecommerce/img/logo_red.png" alt="Metronic Shop UI"></a><!-- LOGO -->
+      </div>
+      <!-- BEGIN CART -->
+      <div class="cart-block">
+        <div class="cart-info">
+          <a href="javascript:void(0);" class="cart-info-count">3 items</a>
+          <a class="cart-info-value">我的收藏</a>
+        </div>
+        <i class="fa fa-shopping-cart"></i>
+        <!-- BEGIN CART CONTENT -->
+        <div class="cart-content-wrapper">
+          <div class="cart-content">
+            <ul class="scroller" style="height: 250px;">
+              <li>
+                <a href="item.html"><img src="{{APPSTATIC}}ecommerce/temp/cart-img.jpg" alt="Rolex Classic Watch" width="37" height="34"></a>
+                <span class="cart-content-count">x 1</span>
+                <strong><a href="item.html">Rolex Classic Watch</a></strong>
+                <em>$1230</em>
+                <a href="javascript:void(0);" class="del-goods"><i class="fa fa-times"></i></a>
+              </li>
+            </ul>
+            <div class="text-right">
+              <a href="shopping-cart.html" class="btn btn-default">View Cart</a>
+              <a href="checkout.html" class="btn btn-primary">Checkout</a>
+            </div>
+          </div>
+        </div>
+        <!-- END CART CONTENT -->
+      </div>
+      <!-- END CART -->
+      <!-- BEGIN NAVIGATION -->
+      <div class="collapse navbar-collapse mega-menu">
+        <ul class="nav navbar-nav">
+          {% for cat in navcats %}
+          {% if cat.children.exists %}
+            <li class="dropdown{%ifequal catid cat.id%} active{%endifequal%}">
+              <a href="{{APPURL}}ecommerce/goods/list?cat={{cat.id}}" class="dropdown-toggle" data-toggle="dropdown" data-delay="0" data-close-others="false">
+                {{cat}}
+                <i class="fa fa-angle-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+              {% for sub in cat.children.all %}
+                <li{%ifequal catid sub.id%} class="active"{%endifequal%}><a href="{{APPURL}}ecommerce/goods/list?cat={{sub.id}}">{{sub}}</a></li>
+              {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+          <li class="{%ifequal catid cat.id%} active{%endifequal%}">
+            <a href="{{APPURL}}ecommerce/goods/list?cat={{cat.id}}">{{cat}}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          <!-- BEGIN TOP SEARCH -->
+          <li class="menu-search">
+            <span class="sep"></span>
+            <i class="fa fa-search search-btn"></i>
+            <div class="search-box">
+              <form id="searchform" class="queryform">
+                <div class="input-group">
+                  <input type="search" placeholder="Search" class="form-control" name="search">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </li>
+          <!-- END TOP SEARCH -->
+        </ul>
+      </div>
+      <!-- END NAVIGATION -->
+    </div>
+  </div>
+  <!-- END HEADER -->
+  {% block title_wrapper %}{% endblock %}
+  <div class="main">
+    <div class="container">{% block main %}{% endblock %}</div>
+  </div>
+
+  <!-- BEGIN BRANDS -->
+  <div class="brands">
+    <div class="container">
+      <div class="owl-carousel owl-carousel6-brands">
+        {% for item in footeradvert %}
+          <a href="{{item.url}}"><img src="{{item.img}}" alt="{{item.title}}" title="{{item.title}}"></a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- END BRANDS -->
+
+  <!-- BEGIN STEPS -->
+  <div class="steps3 steps3red">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 steps3-col">
+          <i class="fa fa-truck"></i>
+          <div>
+            <h2>求购</h2>
+            <em>免费发布求购信息</em>
+          </div>
+          <span>&nbsp;</span>
+        </div>
+        <div class="col-md-4 steps3-col">
+          <i class="fa fa-gift"></i>
+          <div>
+            <h2>转让</h2>
+            <em>交易身边的二手物品</em>
+          </div>
+          <span>&nbsp;</span>
+        </div>
+        <div class="col-md-4 steps3-col">
+          <i class="fa fa-phone"></i>
+          <div>
+            <h2>广西大学</h2>
+            <em></em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END STEPS -->
+
+  <!-- BEGIN PRE-FOOTER -->
+  <div class="pre-footer">
+    <div class="container">
+      <div class="row">
+        <!-- BEGIN BOTTOM ABOUT BLOCK -->
+        <div class="col-md-3 col-sm-6 pre-footer-col">
+          <h2>About us</h2>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam sit nonummy nibh euismod tincidunt ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo consequat. </p>
+          <p>Duis autem vel eum iriure dolor vulputate velit esse molestie at dolore.</p>
+        </div>
+        <!-- END BOTTOM ABOUT BLOCK -->
+        <!-- BEGIN BOTTOM INFO BLOCK -->
+        <div class="col-md-3 col-sm-6 pre-footer-col">
+          <h2>Information</h2>
+          <ul class="list-unstyled">
+            <li><i class="fa fa-angle-right"></i> <a href="#">Delivery Information</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Customer Service</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Order Tracking</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Shipping & Returns</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="contacts.html">Contact Us</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Careers</a></li>
+            <li><i class="fa fa-angle-right"></i> <a href="#">Payment Methods</a></li>
+          </ul>
+        </div>
+        <!-- END INFO BLOCK -->
+        <!-- BEGIN TWITTER BLOCK -->
+        <div class="col-md-3 col-sm-6 pre-footer-col">
+          <h2>Latest Tweets</h2>
+          <dl class="dl-horizontal f-twitter">
+            <dt><i class="fa fa-twitter"></i></dt>
+            <dd>
+              <a href="#">@keenthemes</a>
+              Imperdiet condimentum diam dolor lorem sit consectetur adipiscing
+              <span>3 min ago</span>
+            </dd>
+          </dl>
+          <dl class="dl-horizontal f-twitter">
+            <dt><i class="fa fa-twitter"></i></dt>
+            <dd>
+              <a href="#">@keenthemes</a>
+              Imperdiet condimentum diam dolor lorem sit consectetur adipiscing
+              <span>3 min ago</span>
+            </dd>
+          </dl>
+          <dl class="dl-horizontal f-twitter">
+            <dt><i class="fa fa-twitter"></i></dt>
+            <dd>
+              <a href="#">@keenthemes</a>
+              Imperdiet condimentum diam dolor lorem sit consectetur adipiscing
+              <span>3 min ago</span>
+            </dd>
+          </dl>
+        </div>
+        <!-- END TWITTER BLOCK -->
+        <!-- BEGIN BOTTOM CONTACTS -->
+        <div class="col-md-3 col-sm-6 pre-footer-col">
+          <h2>Our Contacts</h2>
+          <address class="margin-bottom-40">
+            35, Lorem Lis Street, Park Ave<br>
+            California, US<br>
+            Phone: 300 323 3456<br>
+            Fax: 300 323 1456<br>
+            Email: <a href="mailto:info@metronic.com">info@metronic.com</a><br>
+            Skype: <a href="skype:metronic">metronic</a>
+          </address>
+        </div>
+        <!-- END BOTTOM CONTACTS -->
+      </div>
+      <hr>
+      <div class="row">
+        <!-- BEGIN SOCIAL ICONS -->
+        <div class="col-md-6 col-sm-6">
+          <ul class="social-icons">
+            <li><a class="rss" data-original-title="rss" href="#"></a></li>
+            <li><a class="facebook" data-original-title="facebook" href="#"></a></li>
+            <li><a class="twitter" data-original-title="twitter" href="#"></a></li>
+            <li><a class="googleplus" data-original-title="googleplus" href="#"></a></li>
+            <li><a class="linkedin" data-original-title="linkedin" href="#"></a></li>
+            <li><a class="youtube" data-original-title="youtube" href="#"></a></li>
+            <li><a class="vimeo" data-original-title="vimeo" href="#"></a></li>
+            <li><a class="skype" data-original-title="skype" href="#"></a></li>
+          </ul>
+        </div>
+        <!-- END SOCIAL ICONS -->
+        <!-- BEGIN NEWLETTER -->
+        <div class="col-md-6 col-sm-6">
+          <div class="pre-footer-subscribe-box pull-right">
+            <h2>Newsletter</h2>
+            <form action="#">
+              <div class="input-group">
+                <input type="text" placeholder="youremail@mail.com" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit">Subscribe</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- END NEWLETTER -->
+      </div>
+    </div>
+  </div>
+  <!-- END PRE-FOOTER -->
+
+  <!-- BEGIN FOOTER -->
+  <div class="footer padding-top-15">
+    <div class="container">
+      <div class="row">
+        <!-- BEGIN COPYRIGHT -->
+        <div class="col-md-6 col-sm-6 padding-top-10">
+          2017 © Metronic Shop UI. ALL Rights Reserved.
+        </div>
+        <!-- END COPYRIGHT -->
+        <!-- BEGIN PAYMENTS -->
+        <div class="col-md-6 col-sm-6">
+          <ul class="list-unstyled list-inline pull-right margin-bottom-15">
+            <li><img src="{{APPSTATIC}}ecommerce/img/payments/western-union.jpg" alt="We accept Western Union" title="We accept Western Union"></li>
+            <li><img src="{{APPSTATIC}}ecommerce/img/payments/american-express.jpg" alt="We accept American Express" title="We accept American Express"></li>
+            <li><img src="{{APPSTATIC}}ecommerce/img/payments/MasterCard.jpg" alt="We accept MasterCard" title="We accept MasterCard"></li>
+            <li><img src="{{APPSTATIC}}ecommerce/img/payments/PayPal.jpg" alt="We accept PayPal" title="We accept PayPal"></li>
+            <li><img src="{{APPSTATIC}}ecommerce/img/payments/visa.jpg" alt="We accept Visa" title="We accept Visa"></li>
+          </ul>
+        </div>
+        <!-- END PAYMENTS -->
+      </div>
+    </div>
+  </div>
+  <!-- END FOOTER -->
+
+  <img src="{{APPSTATIC}}ecommerce/img/up.png" style="width:40px; height:40px" id="totop">
+
+  <!-- Load javascripts at bottom, this will reduce page load time -->
+  <!-- BEGIN CORE PLUGINS(REQUIRED FOR ALL PAGES) -->
+    <!--[if lt IE 9]>
+    <script src="{{APPSTATIC}}plugins/respond.min.js"></script>
+    <![endif]-->
+    <script src="{{STATIC}}js/jquery-1.11.2.min.js"></script>
+    <script src="{{STATIC}}js/bootstrap.min.js"></script>
+    <script src="{{APPSTATIC}}plugins/back-to-top.js"></script>
+    <script src="{{APPSTATIC}}plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL JAVASCRIPTS(REQUIRED ONLY FOR CURRENT PAGE) -->
+    <script src="{{APPSTATIC}}plugins/fancybox/jquery.fancybox.min.js"></script>
+    <script src="{{APPSTATIC}}plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script src="{{APPSTATIC}}plugins/uniform/jquery.uniform.min.js"></script>
+    {% block js %}{% endblock %}
+    <script src="{{APPSTATIC}}ecommerce/js/layout.js"></script>
+    <script>
+      jQuery(function() {
+        Layout.init();
+        Layout.initOWL();
+        Layout.initUniform();
+      });
+    </script>
+    <!-- END PAGE LEVEL JAVASCRIPTS -->
+  </body>
+  <!-- END BODY -->
+  </html>

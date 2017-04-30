@@ -1,0 +1,6 @@
+{% extends "../../base/index.html" %}
+{% block th %}<th>商品</th><th>顺序</th>{% endblock %}
+{% block td %}
+    <td><a href="{{APPURL}}ecommerce/goods/detail?id={{item.goods_id}}">{{item}}</a></td>
+    <td>{{item.order}}</td>
+{% endblock %}

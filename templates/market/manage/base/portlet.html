@@ -1,0 +1,20 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="col-md-12">
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-comments"></i>{% block pagetitle %}{% endblock %}
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+                <a href="javascript:;" class="reload"></a>
+                <a href="javascript:;" class="remove"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            {% block pagecontent %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

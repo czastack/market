@@ -1,0 +1,126 @@
+{% extends "../base.html" %}
+{% block title %}商品列表{% endblock %}
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="index.html">首页</a></li>
+    <li class="active">全部商品</li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+  <!-- BEGIN SIDEBAR -->
+  <div class="sidebar col-md-3 col-sm-5">
+    {% include '../widget-cats.html' %}
+
+    {% comment %}
+    <div class="sidebar-filter margin-bottom-25">
+      <h2>Filter</h2>
+      <h3>Availability</h3>
+      <div class="checkbox-list">
+        <label><input type="checkbox"> Not Available (3)</label>
+        <label><input type="checkbox"> In Stock (26)</label>
+      </div>
+
+      <h3>Price</h3>
+      <p>
+        <label for="amount">Range:</label>
+        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+      </p>
+      <div id="slider-range"></div>
+    </div>
+    {% endcomment %}
+
+    <div class="sidebar-products clearfix">
+      <h2>热门商品</h2>
+      {% for item in hots %}
+      <div class="item">
+        <a href="detail?id={{item.id}}"><img src="{{item.firstimg}}" alt="{{item.name}}"></a>
+        <h3><a href="detail?id={{item.id}}">{{item.name}}</a></h3>
+        <div class="price">￥{{item.price}}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- END SIDEBAR -->
+  <!-- BEGIN CONTENT -->
+  <div class="col-md-9 col-sm-7">
+    {% if data %}
+    <div class="row list-view-sorting clearfix">
+      <div class="col-md-2 col-sm-2 list-view">
+        <a href="#"><i class="fa fa-th-large"></i></a>
+        <a href="#"><i class="fa fa-th-list"></i></a>
+      </div>
+      <div class="col-md-10 col-sm-10">
+        <form class="form-inline pull-right" class="queryform" id="filterform">
+          <input type="hidden" name="search">
+          <div class="form-group">
+            <label class="control-label">排序:</label>
+            <select class="form-control input-sm" name="order_by">
+              <option value="">默认</option>
+              <option value="name">名称</option>
+              <option value="price">价格</option>
+              <option value="category">分类</option>
+            </select>
+            <select class="form-control input-sm" name="order">
+              <option value="ASC">升序</option>
+              <option value="DESC">降序</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label">每页数量:</label>
+            <select class="form-control input-sm" name="limit">
+              <option>20</option>
+              <option>50</option>
+              <option>75</option>
+              <option>100</option>
+            </select>
+          </div>
+          <button class="btn btn-default ">Go</button>
+        </form>
+      </div>
+    </div>
+    <!-- BEGIN PRODUCT LIST -->
+    <div class="row product-list">
+      {% for item in data %}
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        {% include '../product-item.html' %}
+      </div>
+      {% endfor %}
+    </div>
+    <!-- END PRODUCT LIST -->
+    <!-- BEGIN PAGINATOR -->
+    {{pagination}}
+    <!-- END PAGINATOR -->
+    {% else %}
+    <div class="shopping-cart-data clearfix">
+      <p>没有符合条件的结果</p>
+    </div>
+    {% endif %}
+  </div>
+  <!-- END CONTENT -->
+</div>
+<!-- END SIDEBAR & CONTENT -->
+{% endblock %}
+
+{% block css %}{{block.super}}
+<link href="{{APPSTATIC}}plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"><!-- for slider-range -->
+{% endblock %}
+
+{% block js %}{{block.super}}
+<script src="{{APPSTATIC}}plugins/jquery-ui/jquery-ui.min.js"></script><!-- for slider-range -->
+<script>
+  jQuery(function() {
+    Layout.initSliderRange();
+
+    var args = {{args|safe}};
+    $('.queryform [name]').each(function(){
+      this.value = args[this.name];
+    });
+    $('#searchform').submit(function(){
+      var form = document.getElementById('filterform');
+      form.search.value = this.search.value;
+      form.submit();
+      return false;
+    });
+  });
+</script>
+{% endblock %}

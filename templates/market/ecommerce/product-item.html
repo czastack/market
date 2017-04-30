@@ -1,0 +1,13 @@
+<div class="product-item">
+  <div class="pi-img-wrapper">
+    <img src="{{item.firstimg}}" class="img-responsive" alt="{{item}}">
+    <div>
+      <a href="{{item.firstimg}}" class="btn btn-default" data-fancybox>Zoom</a>
+      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+    </div>
+  </div>
+  <h3><a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}">{{item}}</a></h3>
+  <div class="pi-time">{{item.createtime|date:"Y-m-d"}}</div>
+  <div class="pi-price">￥{{item.price}}</div>
+  <a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}" class="btn btn-default add2cart">详情</a>
+</div>

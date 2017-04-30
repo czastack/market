@@ -1,0 +1,33 @@
+goods/list
+goods/update
+goods/publish
+goods/delete
+goods/detail
+goods/comment
+
+user/update
+user/changepwd
+user/info
+
+comment/list
+comment/delete
+
+message/add
+message/list
+
+manage/user/list
+manage/user/enable
+manage/user/disable
+manage/category/add
+manage/category/delete
+manage/category/update
+
+login
+register
+logout
+
+
+    lv = (self.route_flag & 0xF) -1
+        if not self.route_flag & 0x10:
+            lv -= 1
+        return '/'.join(self.route[:lv])

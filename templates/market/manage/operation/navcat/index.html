@@ -1,0 +1,32 @@
+{% extends "../../base/portlet.html" %}
+{% block pagetitle %}{{handler.pagetitle}}管理{% endblock %}
+{% block pagecontent %}
+<form action="add" method="post">
+  <div class="table-toolbar">
+    <div class="btn-group">
+    <button class="btn green">保存 <i class="fa fa-save"></i></button>
+    </div>
+  </div>
+  <div class="table-responsive container-fluid">
+    {% if data %}
+    <table class="table table-striped table-hover dataTable" id="sample_editable_1">
+      <thead>
+        <tr><th></th><th>名称</th><th>父类别</th><th>排序</th></tr>
+      </thead>
+      <tbody>
+        {% for item in data %}
+        <tr>
+          <td><input type="checkbox" name="id" value="{{item.id}}" {%if item.checked%}checked{%endif%}></td>
+          <td>{{item.name}}</td>
+          <td>{{item.parent}}</td>
+          <td>{{item.order}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div>没有数据</div>
+    {% endif %}
+  </div>
+</form>
+{% endblock %}

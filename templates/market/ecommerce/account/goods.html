@@ -1,0 +1,56 @@
+{% extends "./base.html" %}
+
+{% block content %}
+<h1 class="padding-top-10">我的商品 
+  <a href="{{APPURL}}ecommerce/goods/publish" class="btn btn-sm green pull-right">发布 <i class="fa fa-plus"></i></a>
+</h1>
+<div class="shopping-cart">
+  <div class="shopping-cart-data clearfix">
+    <div class="table-wrapper-responsive">
+    <table summary="Shopping cart">
+      <tbody><tr>
+        <th class="shopping-cart-image">图片</th>
+        <th class="shopping-cart-description">描述</th>
+        <th class="shopping-cart-price">价格</th>
+        <th width="60">状态</th>
+        <th width="120">操作</th>
+      </tr>
+      {% for item in data %}
+      <tr>
+        <td class="shopping-cart-image">
+          <a href="{{item.firstimg}}" data-fancybox="{{item.id}}" data-caption="{{item.name}}"><img src="{{item.firstimg}}" alt="{{item.name}}"></a>
+          {% for img in item.otherimg %}
+            <a href="{{img}}" data-fancybox="{{item.id}}" data-caption="{{item.name}}"></a>
+          {% endfor %}
+        </td>
+        <td class="shopping-cart-description">
+          <h3><a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}">{{item.name}}</a></h3>
+          <p>{{item.desc}}</p>
+          <i class="tooltips"  data-toggle="tooltip" data-placement="bottom" title="{{item.desc_detail}}">详细信息</i>
+        </td>
+        <td class="shopping-cart-price">
+          <strong><span>￥</span>{{item.price}}</strong>
+        </td>
+        <td>{{item.get_status_display}}</td>
+        <td>
+          <div class="btn-group btn-group-xs btn-group-solid">
+            <a href="{{APPURL}}ecommerce/goods/update?id={{item.id}}" class="btn blue edit"><i class="fa fa-edit"></i> 编辑</a>
+            <a href="{{APPURL}}ecommerce/goods/delete?id={{item.id}}" class="btn red delete"><i class="fa fa-trash-o"></i> 删除</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody></table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block css %}{{block.super}}
+{% endblock %}
+
+{% block js %}{{block.super}}
+  <script>
+    jQuery('.tooltips').tooltip();
+  </script>
+{% endblock %}

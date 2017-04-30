@@ -1,0 +1,7 @@
+{% extends "../base/index.html" %}
+{% block th %}<th>名称</th><th>父类别</th><th>排序</th>{% endblock %}
+{% block td %}
+    <td>{{item.name}}</td>
+    <td>{{item.parent}}</td>
+    <td>{{item.order}}</td>
+{% endblock %}

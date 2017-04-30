@@ -1,0 +1,194 @@
+{% extends "../../base/portlet.html" %}
+{% block pagetitle %}上传图片{% endblock %}
+{% block pagecontent %}
+<form id="fileupload" method="POST" enctype="multipart/form-data">
+  <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+  <div class="row fileupload-buttonbar">
+    <div class="col-lg-12">
+      <!-- The fileinput-button span is used to style the file input field as button -->
+      <label class="btn green fileinput-button">
+        <i class="fa fa-plus"></i>
+        <span>添加图片</span>
+        <input class="hidden" type="file" name="file" accept="image/*" multiple>
+      </label>
+      <button type="submit" class="btn blue start">
+        <i class="fa fa-upload"></i><span>开始上传</span>
+      </button>
+      <button type="reset" class="btn warning cancel">
+        <i class="fa fa-ban-circle"></i><span>取消上传</span>
+      </button>
+      <!-- The global file processing state -->
+      <span class="fileupload-process"></span>
+    </div>
+  </div>
+  <!-- The table listing the files available for upload/download -->
+  <table role="presentation" class="table table-striped clearfix">
+    <tbody class="files"></tbody>
+  </table>
+</form>
+{% endblock %}
+
+{% block css %}{{block.super}}
+<style>
+  #fileupload .preview img {
+    max-width: 120px;
+    max-height: 120px;
+  }
+  #fileupload td {
+      vertical-align: middle;
+  }
+  #fileupload .name,
+  #fileupload .size {
+      font-size: 16px;
+  }
+</style>
+{% endblock %}
+
+{% block js %}{{block.super}}
+{% verbatim %}
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<script id="template-upload" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <tr class="template-upload fade">
+          <td>
+              <span class="preview"></span>
+          </td>
+          <td>
+              <p class="name">{%=file.name%}</p>
+              {% if (file.error) { %}
+                  <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+              {% } %}
+          </td>
+          <td>
+              <p class="size">{%=o.formatFileSize(file.size)%}</p>
+              {% if (!o.files.error) { %}
+                  <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                  <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                  </div>
+              {% } %}
+          </td>
+          <td>
+              {% if (!o.files.error && !i && !o.options.autoUpload) { %}
+                  <button class="btn blue start btn-sm">
+                      <i class="fa fa-upload"></i>
+                      <span>Start</span>
+                  </button>
+              {% } %}
+              {% if (!i) { %}
+                  <button class="btn red cancel btn-sm">
+                      <i class="fa fa-ban"></i>
+                      <span>Cancel</span>
+                  </button>
+              {% } %}
+          </td>
+      </tr>
+  {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <tr class="template-download fade">
+          <td>
+              <span class="preview">
+                  {% if (file.thumbnailUrl) { %}
+                      <a href="{%=file.url%}" title="{%=file.name%}" data-fancybox="images"><img src="{%=file.thumbnailUrl%}"></a>
+                  {% } %}
+              </span>
+          </td>
+          <td>
+              <p class="name">
+                  {%=file.url%}
+              </p>
+              {% if (file.error) { %}
+                  <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+              {% } %}
+          </td>
+          <td>
+              <span class="size">{%=o.formatFileSize(file.size)%}</span>
+          </td>
+          <td>
+              <!-- <a href="{%=file.url%}" class="btn blue btn-view" data-fancybox><i class="fa fa-eye"></i>Zoom</a> -->
+          </td>
+      </tr>
+  {% } %}
+</script>
+{% endverbatim %}
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/vendor/tmpl.min.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/vendor/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
+<!-- blueimp Gallery script -->
+<!-- <script src="{{APPSTATIC}}plugins/blueimp-gallery/jquery.blueimp-gallery.min.js"></script> -->
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/jquery.fileupload-image.js"></script>
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="{{APPSTATIC}}plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
+<script src="{{APPSTATIC}}plugins/zoom/jquery.zoom.min.js"></script>
+<script>
+  $(function () {
+    // Initialize the jQuery File Upload widget:
+    var $fileupload = $('#fileupload');
+    var $images = $('#images');
+
+    // $('#step1 .collapse').collapse('show');
+    $('.form-right').prepend($("#id_desc").parent());
+    $('#id_sdtype').addClass('list-inline');
+
+    $fileupload.fileupload({
+        disableImageResize: false,
+        autoUpload: false,
+        // singleFileUploads: false,
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: "{{upload_url}}",
+        disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
+        maxFileSize: 5000000,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+
+        completed: function (e, data) {
+          
+        },
+        destroyed: function(e, data){
+          
+        }
+    });
+
+    // Enable iframe cross-domain access via redirect option:
+    $fileupload.fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    $("#form").submit(function(){
+      if (!this.images) {
+        var $alert = $(".alert.hidden");
+        if ($alert.next('.alert').length == 0) {
+          $alert.after($alert.clone().removeClass('hidden'));
+        }
+        return false;
+      }
+    });
+
+    {% if images %}
+    $fileupload.fileupload('option', 'done').call($fileupload, $.Event('done'), {
+      result: {{images|safe}}
+    });
+    {% endif %}
+  });
+</script>
+{% endblock %}

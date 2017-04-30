@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-4 col-sm-4 items-info">第 {{start}} 到 {{end}} 件，共 {{num}} 件</div>
+  <div class="col-md-8 col-sm-8">
+    <ul class="pagination pull-right">
+      {% ifequal prev 0 %}
+        <li class="disabled"><a><i class="fa fa-angle-left"></i></a></li>
+      {% else %}
+        <li><a href="?page={{prev}}"><i class="fa fa-angle-left"></i></a></li>
+      {% endifequal %}
+      {% for p in pages %}
+        {% ifequal p '...' %}
+          <li class="disabled"><a>...</a></li>
+        {% else %}
+          {% ifequal p cur %}
+            <li class="active"><a>{{p}}</a></li>
+          {% else %}
+            <li><a href="?page={{p}}">{{p}}</a></li>
+          {% endifequal %}
+        {% endifequal %}
+      {% endfor %}
+      {% ifequal next 0 %}
+        <li class="disabled"><a><i class="fa fa-angle-right"></i></a></li>
+      {% else %}
+        <li><a href="?page={{next}}"><i class="fa fa-angle-right"></i></a></li>
+      {% endifequal %}
+    </ul>
+  </div>
+</div>
+<script>
+  (function (){
+      var href = location.href;
+      if (href.indexOf('?') == -1){
+          return false;
+      }
+      var args = href.substr(href.indexOf('?') + 1).split('&')
+      args = args.filter(function(i){ return i.indexOf('page=') == -1 })
+
+      document.querySelectorAll('.pagination a[href]').forEach(function(a){
+          a.href += '&' + args.join('&')
+      })
+  })()
+</script>

@@ -1,0 +1,74 @@
+{% extends "./base.html" %}
+
+{% block content %}
+<h1 class="padding-top-10">账户设置</h1>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#tab-1" data-toggle="tab">个人信息</a></li>
+  <li><a href="#tab-2" data-toggle="tab">修改头像</a></li>
+  <li><a href="#tab-3" data-toggle="tab">修改密码</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="tab-1">
+    <form class="form-horizontal form-without-legend" method="post" action="info">
+      {% include '../login-form-fields.html' with form=infoform class_label='col-lg-2' class_field='col-lg-8' nosubmit=True %}
+      <div class="row">
+        <div class="col-lg-8 col-md-offset-2 padding-left-0 padding-top-20">
+          <button class="btn btn-primary" type="submit">提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="tab-pane fade" id="tab-2">
+  {% if handler.userinfo %}
+    <form class="form-horizontal" method="post" action="avatar" enctype="multipart/form-data">
+      <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+          <img src="{{handler.userinfo.avatar.url}}">
+        </div>
+        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+        <div>
+          <span class="btn default btn-file">
+            <span class="fileinput-new">选取</span>
+            <span class="fileinput-exists">修改</span>
+            <input type="file" name="avatar" accept="image/*" required>
+          </span>
+          <span class="fileinput-exists">
+            <button class="btn default" data-dismiss="fileinput"><i class="glyphicon glyphicon-remove"></i> 移除</button>
+            <button class="btn btn-primary" type="submit">提交</button>
+          </span>
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <h2 class="text-danger">上传头像前请完善信息</h2>
+  {% endif %}
+  </div>
+
+  <div class="tab-pane fade" id="tab-3">
+    <form class="form-horizontal" method="post" action="password">
+      {% include '../login-form-fields.html' with form=pwdform class_label='col-lg-2' class_field='col-lg-8' nosubmit=True %}
+      {% include '../widget-repwd.html' with class_label='col-lg-2' class_field='col-lg-8' %}
+      <div class="row">
+        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+          <button type="submit" class="btn btn-primary">修改</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block css %}{{block.super}}
+<link href="{{APPSTATIC}}plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}{{block.super}}
+<script src="{{APPSTATIC}}plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+<script src="{{APPSTATIC}}ecommerce/js/form-pwd.js"></script>
+{% if pwdform.errors %}
+<script>
+  $('[href="#tab-3"]').tab('show')
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "../../base/index.html" %}
+{% block th %}<th>图片</th><th>链接</th><th>标题</th><th>顺序</th>{% endblock %}
+{% block td %}
+    <td><img src="{{item.img}}" class="preview"></td>
+    <td>{{item.url}}</td>
+    <td>{{item.title}}</td>
+    <td>{{item.order}}</td>
+{% endblock %}
+
+{% block css %}{{block.super}}
+<style>
+  .preview {
+    max-width: 120px;
+    max-height: 120px;
+  }
+</style>
+{% endblock %}

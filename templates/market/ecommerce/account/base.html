@@ -1,0 +1,27 @@
+{% extends "../base.html" %}
+{% block title %}我的账户{% endblock %}
+{% block main %}
+<ul class="breadcrumb">
+  <li><a href="index.html">首页</a></li>
+  <li class="active">我的账户</li>
+</ul>
+<!-- BEGIN SIDEBAR & CONTENT -->
+<div class="row margin-bottom-40">
+  <!-- BEGIN SIDEBAR -->
+  <div class="sidebar col-md-2">
+    <ul class="list-group margin-bottom-25 sidebar-menu">
+      <!-- <li class="list-group-item clearfix"><a href="overview"><i class="fa fa-angle-right"></i> 概况</a></li> -->
+      <li class="list-group-item clearfix"><a href="setting"><i class="fa fa-angle-right"></i> 账户设置</a></li>
+      <li class="list-group-item clearfix"><a href="goods"><i class="fa fa-angle-right"></i> 我的商品</a></li>
+    </ul>
+  </div>
+  <!-- END SIDEBAR -->
+
+  <!-- BEGIN CONTENT -->
+  <div class="col-md-10 content-form-page">
+    {% block content %}{% endblock %}
+  </div>
+  <!-- END CONTENT -->
+</div>
+<!-- END SIDEBAR & CONTENT -->
+{% endblock %}
