@@ -78,6 +78,7 @@
         <!-- END RESPONSIVE MENU TOGGLER -->
         <a href="{{APPURL}}ecommerce/" class="navbar-brand"><img src="{{APPSTATIC}}ecommerce/img/logo_red.png" alt="Metronic Shop UI"></a><!-- LOGO -->
       </div>
+      {% comment %}
       <!-- BEGIN CART -->
       <div class="cart-block">
         <div class="cart-info">
@@ -106,13 +107,17 @@
         <!-- END CART CONTENT -->
       </div>
       <!-- END CART -->
+      {% endcomment %}
       <!-- BEGIN NAVIGATION -->
       <div class="collapse navbar-collapse mega-menu">
         <ul class="nav navbar-nav">
+          <li class="{%ifequal catid 0%} active{%endifequal%}">
+            <a href="{{APPURL}}ecommerce/goods/list">全部商品</a>
+          </li>
           {% for cat in navcats %}
           {% if cat.children.exists %}
             <li class="dropdown{%ifequal catid cat.id%} active{%endifequal%}">
-              <a href="{{APPURL}}ecommerce/goods/list?cat={{cat.id}}" class="dropdown-toggle" data-toggle="dropdown" data-delay="0" data-close-others="false">
+              <a href="{{APPURL}}ecommerce/goods/list?cat={{cat.id}}" class="dropdown-toggle">
                 {{cat}}
                 <i class="fa fa-angle-down"></i>
               </a>

@@ -19,16 +19,35 @@
     background-color: #fff;
     border-color: inherit;
 }
-.sticker-demand {
-	position: absolute;
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    right: -16px;
-    top: 20px;
+.product-page,
+.product-item {
+    overflow: hidden;
+}
+.sticker-text {
+    position: absolute;
+    top: 10px;
     color: #fff;
     width: 100px;
     line-height: 18px;
     text-align: center;
+    z-index: 10;
+}
+.sticker-right {
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    right: -30px;
+}
+
+.sticker-left {
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    left: -30px;
+}
+
+.sticker-demand {
+    background-color: #E13E45;
 }

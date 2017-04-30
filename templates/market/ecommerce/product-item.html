@@ -3,11 +3,46 @@
     <img src="{{item.firstimg}}" class="img-responsive" alt="{{item}}">
     <div>
       <a href="{{item.firstimg}}" class="btn btn-default" data-fancybox>Zoom</a>
-      <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+      {% if view %}<a href="#product-pop-up-{{item.id}}" class="btn btn-default" data-fancybox="fast-view">View</a>{% endif %}
     </div>
   </div>
   <h3><a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}">{{item}}</a></h3>
-  <div class="pi-time">{{item.createtime|date:"Y-m-d"}}</div>
+  <p>
+    <span class="pi-seller">{{item.seller.userinfo.nickname}}</span>
+    <span class="pi-time pull-right">{{item.createtime|date:"Y-m-d"}}</span>
+  </p>
   <div class="pi-price">￥{{item.price}}</div>
   <a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}" class="btn btn-default add2cart">详情</a>
+  {% ifequal item.sdtype item.DEMAND %}<div class="sticker-text sticker-right sticker-demand">求购</div>{% endifequal %}
 </div>
+
+{% if view %}
+<!-- BEGIN fast view of a product -->
+<div id="product-pop-up-{{item.id}}" style="display: none; width: 700px;">
+  <div class="product-page product-pop-up">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-3">
+        <div class="product-main-image">
+          <img src="{{item.firstimg}}" data-BigImgsrc="{{item.firstimg}}" alt="{{item.name}}" class="img-responsive">
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-9">
+        <h1>{{item.name}}</h1>
+        <div class="price-availability-block clearfix">
+          <div class="price">
+            <strong><span>$</span>{{item.price}}</strong>
+          </div>
+        </div>
+        <div class="description">
+          <p>{{item.desc}}</p>
+        </div>
+        <div class="product-page-cart">
+          <a class="btn btn-primary" href="?id={{item.id}}">详情</a>
+        </div>
+      </div>
+      <!-- <div class="sticker sticker-sale"></div> -->
+    </div>
+  </div>
+</div>
+<!-- END fast view of a product -->
+{% endif %}

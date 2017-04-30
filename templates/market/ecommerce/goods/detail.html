@@ -46,7 +46,7 @@
               <!-- <em>$<span>62.00</span></em> -->
             </div>
             <div class="availability">
-              Availability: <strong>In Stock</strong>
+              发布人: <strong>{{goods.seller.userinfo.nickname}}</strong>
             </div>
           </div>
           <div class="description">
@@ -63,13 +63,17 @@
             <a href="javascript:;">7 reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:;">Write a review</a>
           </div>
           {% endcomment %}
-          <ul class="social-icons">
-            <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
-            <li><a class="twitter" data-original-title="twitter" href="javascript:;"></a></li>
-            <li><a class="googleplus" data-original-title="googleplus" href="javascript:;"></a></li>
-            <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
-            <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
-          </ul>
+          <!-- JiaThis Button BEGIN -->
+          <div class="jiathis_style">
+              <span class="jiathis_txt">分享到：</span>
+              <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+              <a class="jiathis_button_tools_1"></a>
+              <a class="jiathis_button_tools_2"></a>
+              <a class="jiathis_button_tools_3"></a>
+              <a class="jiathis_button_tools_4"></a>
+          </div>
+          <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+          <!-- JiaThis Button END -->
         </div>
 
         <div class="product-page-content">
@@ -80,12 +84,16 @@
           </ul>
           <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="Description">
-              <p><pre>{{goods.desc_detail}}</pre></p>
+              {%if goods.desc_detail%}<p><pre>{{goods.desc_detail}}</pre></p>{%endif%}
             </div>
             <div class="tab-pane fade" id="Information">
               <table class="datasheet">
                 <tr>
-                  <th colspan="2">信息</th>
+                  <th colspan="2">发布人信息</th>
+                </tr>
+                <tr>
+                  <td class="datasheet-features-type">姓名</td>
+                  <td>{{goods.seller.userinfo.fullname}}</td>
                 </tr>
                 <tr>
                   <td class="datasheet-features-type">手机号</td>
@@ -146,7 +154,7 @@
           </div>
         </div>
 
-        <div class="sticker sticker-sale"></div>
+        {% ifequal goods.sdtype goods.DEMAND %}<div class="sticker-text sticker-left sticker-demand">求购</div>{% endifequal %}
       </div>
     </div>
   </div>
@@ -160,50 +168,7 @@
     <h2>热门商品</h2>
     <div class="owl-carousel owl-carousel4">
     {% for item in hots %}
-      <div>
-        <div class="product-item">
-          <div class="pi-img-wrapper">
-            <img src="{{item.firstimg}}" class="img-responsive" alt="{{item.name}}">
-            <div>
-              <a href="{{item.firstimg}}" class="btn btn-default" data-fancybox>Zoom</a>
-              <a href="#product-pop-up-{{item.id}}" class="btn btn-default" data-fancybox="fast-view">View</a>
-            </div>
-          </div>
-          <h3><a href="?id={{item.id}}">{{item.name}}</a></h3>
-          <div class="pi-price">${{item.price}}</div>
-          <a href="?id={{item.id}}" class="btn btn-default add2cart">详情</a>
-          <!-- <div class="sticker sticker-new"></div> -->
-        </div>
-      </div>
-
-      <!-- BEGIN fast view of a product -->
-      <div id="product-pop-up-{{item.id}}" style="display: none; width: 700px;">
-        <div class="product-page product-pop-up">
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-3">
-              <div class="product-main-image">
-                <img src="{{item.firstimg}}" data-BigImgsrc="{{item.firstimg}}" alt="{{item.name}}" class="img-responsive">
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-9">
-              <h1>{{item.name}}</h1>
-              <div class="price-availability-block clearfix">
-                <div class="price">
-                  <strong><span>$</span>{{item.price}}</strong>
-                </div>
-              </div>
-              <div class="description">
-                <p>{{item.desc}}</p>
-              </div>
-              <div class="product-page-cart">
-                <a class="btn btn-primary" href="?id={{item.id}}">详情</a>
-              </div>
-            </div>
-            <!-- <div class="sticker sticker-sale"></div> -->
-          </div>
-        </div>
-      </div>
-      <!-- END fast view of a product -->
+      <div>{% include '../product-item.html' with view=True %}</div>
     {% endfor %}
     </div>
   </div>

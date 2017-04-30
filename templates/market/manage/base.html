@@ -241,11 +241,6 @@
 					<ul class="sub-menu">
 						<li><a href="{{MANAGEURL}}goods/"> <i class="fa fa-gift"></i> 商品管理</a></li>
 						<li><a href="{{MANAGEURL}}category/"> <i class="fa fa-sitemap"></i> 分类管理</a></li>
-						<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="Complete E-Commerce Frontend Theme For Metronic Admin">
-							<a href="http://keenthemes.com/preview/index.php?theme=metronic_ecommerce" target="_blank">
-								<span class="title">E-Commerce Frontend</span>
-							</a>
-						</li>
 					</ul>
 				</li>
 				<li>
@@ -396,21 +391,11 @@
 						{% block breadcrumb %}
 						<li>
 							<i class="fa fa-home"></i>
-							<a href="index.html">
-								Home
-							</a>
+							<a href="#">后台管理</a>
 							<i class="fa fa-angle-right"></i>
 						</li>
 						<li>
-							<a href="#">
-								Page Layouts
-							</a>
-							<i class="fa fa-angle-right"></i>
-						</li>
-						<li>
-							<a href="#">
-								Blank Page
-							</a>
+							<a href="#">{{handler.pagetitle}}</a>
 						</li>
 						{% endblock %}
 					</ul>

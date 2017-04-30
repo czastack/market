@@ -62,7 +62,7 @@ class Goods(BaseModel):
 
     name = models.CharField('商品名称', max_length=128)
     desc = models.CharField('简介', max_length=512, blank=True)
-    desc_detail = models.CharField('详细描述', max_length=512, blank=True, null=True)
+    desc_detail = models.CharField('详细描述', max_length=512, blank=True, default='')
     price = models.IntegerField('价格', default=0)
     location = models.CharField('地址', max_length=32)
     phone = models.CharField('电话', max_length=11)

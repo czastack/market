@@ -7,4 +7,5 @@ class DefaultHandler(BaseHandler):
 
     model = models.Category
     form  = forms.model_form(model)
+    pagetitle = '分类管理'
 

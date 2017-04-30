@@ -6,6 +6,7 @@ class DefaultHandler(BaseHandler):
     __slots__ = ()
 
     model = models.Goods
+    pagetitle = '商品管理'
 
     def verify(self):
         if self.is_get:
