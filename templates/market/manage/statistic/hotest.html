@@ -1,0 +1,72 @@
+{% extends "../base/portlet.html" %}
+{% block pagetitle %}{{handler.pagetitle}}{% endblock %}
+{% block pagecontent %}
+<div class="table-responsive container-fluid">
+    {% if data %}
+    <table class="table table-striped table-hover dataTable" id="sample_editable_1">
+        <thead>
+            <tr>
+                <th>图片</th>
+                <th>描述</th>
+                <th>价格</th>
+                <th>浏览量</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+              <td class="goods-image">
+                <a href="{{item.firstimg}}" data-fancybox="{{item.id}}" data-caption="{{item.name}}" title="点击浏览大图">
+                  <img src="{{item.firstimg}}" alt="{{item.name}}">
+                </a>
+                {% for img in item.otherimg %}
+                <a href="{{img}}" data-fancybox="{{item.id}}" data-caption="{{item.name}}"></a>
+                {% endfor %}
+              </td>
+              <td class="goods-description">
+                <h3>
+                  <a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}">{{item.name}}</a>
+                </h3>
+                <p>{{item.desc}}</p>
+              </td>
+              <td class="goods-price">
+                <strong>
+                  <span>￥</span>
+                  {{item.price}}
+                </strong>
+              </td>
+              <td>{{item.view_count}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div>没有数据</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block css %} {{block.super}}
+  <style>
+    .avatar {
+        width: 80px;
+    }
+    .goods-image img {
+      width: 75px;
+    }
+    .goods-description h3 {
+      font: 300 14px 'Open Sans', sans-serif;
+      text-transform: inherit;
+      padding: 0;
+      margin: 0 0 5px;
+    }
+    .goods-description p {
+      margin-bottom: 2px;
+    }
+    </style>
+  <link href="{{APPSTATIC}}plugins/fancybox/jquery.fancybox.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %} {{block.super}}
+  <script src="{{APPSTATIC}}plugins/fancybox/jquery.fancybox.min.js"></script>
+{% endblock %}
