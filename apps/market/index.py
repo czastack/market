@@ -2,6 +2,7 @@ from andweb.django.handler import AssignableHandler
 from django.contrib import auth
 from .ecommerce.basehandler import BaseHandler 
 from . import models, forms
+import math
 
 
 class DefaultHandler(AssignableHandler):
@@ -23,8 +24,8 @@ class DefaultHandler(AssignableHandler):
     def index(self):
         recomments = models.RecommentGoods.objects.order_by('order')[:10]
         recomments = (item.goods for item in recomments)
-        goods = models.Goods.objects.order_by('-createtime')[:12]
-        count = goods.count() // 2
+        goods = models.Goods.publics().order_by('-createtime')[:12]
+        count = math.ceil(goods.count() / 2)
         three = goods[:count]
         two = goods[count:count+count]
         index_advert = models.IndexAdvert.objects.order_by('-order')[:5]

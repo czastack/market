@@ -44,6 +44,9 @@ class DefaultHandler(BaseHandler):
             form = forms.GoodsForm()
             if self.userinfo:
                 form.initial = {'phone': self.userinfo.phone}
+                catid = self.get_arg('cat', None)
+                if catid:
+                    form.initial['category'] = catid
             del form.fields['images']
         else:
             form = forms.GoodsForm(self.request.POST)

@@ -38,6 +38,7 @@
                       </td>
                       <td class="goods-description">
                         <h3>
+                          {% ifequal item.sdtype item.DEMAND %}(求购){% endifequal %}
                           <a href="{{APPURL}}ecommerce/goods/detail?id={{item.id}}">{{item.name}}</a>
                         </h3>
                         <p>{{item.desc}}</p>

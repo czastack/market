@@ -35,7 +35,7 @@
       <div class="item">
         <a href="detail?id={{item.id}}"><img src="{{item.firstimg}}" alt="{{item.name}}"></a>
         <h3><a href="detail?id={{item.id}}">{{item.name}}</a></h3>
-        <div class="price">￥{{item.price}}</div>
+        <div class="price">￥{{item.price}} {% ifequal item.sdtype item.DEMAND %}<span>(求购)</span>{% endifequal %}</div>
       </div>
       {% endfor %}
     </div>
@@ -92,7 +92,7 @@
     <!-- END PAGINATOR -->
     {% else %}
     <div class="shopping-cart-data clearfix">
-      <p>没有符合条件的结果</p>
+      <p>没有符合条件的结果，<a href="{{APPURL}}ecommerce/goods/publish?cat={{catid}}">去发布</a></p>
     </div>
     {% endif %}
   </div>

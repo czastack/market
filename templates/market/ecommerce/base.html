@@ -138,11 +138,11 @@
             <span class="sep"></span>
             <i class="fa fa-search search-btn"></i>
             <div class="search-box">
-              <form id="searchform" class="queryform">
+              <form id="searchform" class="queryform" action="{{APPURL}}ecommerce/goods/list">
                 <div class="input-group">
                   <input type="search" placeholder="Search" class="form-control" name="search">
                   <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-primary" type="submit">搜索</button>
                   </span>
                 </div>
               </form>
@@ -210,46 +210,24 @@
       <div class="row">
         <!-- BEGIN BOTTOM ABOUT BLOCK -->
         <div class="col-md-3 col-sm-6 pre-footer-col">
-          <h2>About us</h2>
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam sit nonummy nibh euismod tincidunt ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo consequat. </p>
-          <p>Duis autem vel eum iriure dolor vulputate velit esse molestie at dolore.</p>
+          <h2>关于我们</h2>
+          <p>我们，是广西大学的创业团队 </p>
+          <p></p>
         </div>
         <!-- END BOTTOM ABOUT BLOCK -->
         <!-- BEGIN BOTTOM INFO BLOCK -->
         <div class="col-md-3 col-sm-6 pre-footer-col">
-          <h2>Information</h2>
+          <h2>信息</h2>
           <ul class="list-unstyled">
             <li><i class="fa fa-angle-right"></i> <a href="#">Delivery Information</a></li>
-            <li><i class="fa fa-angle-right"></i> <a href="#">Customer Service</a></li>
-            <li><i class="fa fa-angle-right"></i> <a href="#">Order Tracking</a></li>
-            <li><i class="fa fa-angle-right"></i> <a href="#">Shipping & Returns</a></li>
-            <li><i class="fa fa-angle-right"></i> <a href="contacts.html">Contact Us</a></li>
-            <li><i class="fa fa-angle-right"></i> <a href="#">Careers</a></li>
-            <li><i class="fa fa-angle-right"></i> <a href="#">Payment Methods</a></li>
           </ul>
         </div>
         <!-- END INFO BLOCK -->
         <!-- BEGIN TWITTER BLOCK -->
         <div class="col-md-3 col-sm-6 pre-footer-col">
-          <h2>Latest Tweets</h2>
+          <h2>最新的消息</h2>
           <dl class="dl-horizontal f-twitter">
-            <dt><i class="fa fa-twitter"></i></dt>
-            <dd>
-              <a href="#">@keenthemes</a>
-              Imperdiet condimentum diam dolor lorem sit consectetur adipiscing
-              <span>3 min ago</span>
-            </dd>
-          </dl>
-          <dl class="dl-horizontal f-twitter">
-            <dt><i class="fa fa-twitter"></i></dt>
-            <dd>
-              <a href="#">@keenthemes</a>
-              Imperdiet condimentum diam dolor lorem sit consectetur adipiscing
-              <span>3 min ago</span>
-            </dd>
-          </dl>
-          <dl class="dl-horizontal f-twitter">
-            <dt><i class="fa fa-twitter"></i></dt>
+            <dt><i class="fa fa-comment"></i></dt>
             <dd>
               <a href="#">@keenthemes</a>
               Imperdiet condimentum diam dolor lorem sit consectetur adipiscing
@@ -260,31 +238,23 @@
         <!-- END TWITTER BLOCK -->
         <!-- BEGIN BOTTOM CONTACTS -->
         <div class="col-md-3 col-sm-6 pre-footer-col">
-          <h2>Our Contacts</h2>
+          <h2>联系我们</h2>
           <address class="margin-bottom-40">
-            35, Lorem Lis Street, Park Ave<br>
-            California, US<br>
-            Phone: 300 323 3456<br>
-            Fax: 300 323 1456<br>
-            Email: <a href="mailto:info@metronic.com">info@metronic.com</a><br>
-            Skype: <a href="skype:metronic">metronic</a>
+            广西大学<br>
+            Phone: 300 123 4567<br>
+            Fax: 300 123 4567<br>
+            Email: <a href="mailto:#">info@metronic.com</a><br>
           </address>
         </div>
         <!-- END BOTTOM CONTACTS -->
       </div>
+      {% comment %}
       <hr>
       <div class="row">
         <!-- BEGIN SOCIAL ICONS -->
         <div class="col-md-6 col-sm-6">
           <ul class="social-icons">
             <li><a class="rss" data-original-title="rss" href="#"></a></li>
-            <li><a class="facebook" data-original-title="facebook" href="#"></a></li>
-            <li><a class="twitter" data-original-title="twitter" href="#"></a></li>
-            <li><a class="googleplus" data-original-title="googleplus" href="#"></a></li>
-            <li><a class="linkedin" data-original-title="linkedin" href="#"></a></li>
-            <li><a class="youtube" data-original-title="youtube" href="#"></a></li>
-            <li><a class="vimeo" data-original-title="vimeo" href="#"></a></li>
-            <li><a class="skype" data-original-title="skype" href="#"></a></li>
           </ul>
         </div>
         <!-- END SOCIAL ICONS -->
@@ -304,6 +274,7 @@
         </div>
         <!-- END NEWLETTER -->
       </div>
+      {% endcomment %}
     </div>
   </div>
   <!-- END PRE-FOOTER -->
@@ -313,21 +284,8 @@
     <div class="container">
       <div class="row">
         <!-- BEGIN COPYRIGHT -->
-        <div class="col-md-6 col-sm-6 padding-top-10">
-          2017 © Metronic Shop UI. ALL Rights Reserved.
-        </div>
+        <p class="col-md-6 col-sm-6"> 2017 © . ALL Rights Reserved. </p>
         <!-- END COPYRIGHT -->
-        <!-- BEGIN PAYMENTS -->
-        <div class="col-md-6 col-sm-6">
-          <ul class="list-unstyled list-inline pull-right margin-bottom-15">
-            <li><img src="{{APPSTATIC}}ecommerce/img/payments/western-union.jpg" alt="We accept Western Union" title="We accept Western Union"></li>
-            <li><img src="{{APPSTATIC}}ecommerce/img/payments/american-express.jpg" alt="We accept American Express" title="We accept American Express"></li>
-            <li><img src="{{APPSTATIC}}ecommerce/img/payments/MasterCard.jpg" alt="We accept MasterCard" title="We accept MasterCard"></li>
-            <li><img src="{{APPSTATIC}}ecommerce/img/payments/PayPal.jpg" alt="We accept PayPal" title="We accept PayPal"></li>
-            <li><img src="{{APPSTATIC}}ecommerce/img/payments/visa.jpg" alt="We accept Visa" title="We accept Visa"></li>
-          </ul>
-        </div>
-        <!-- END PAYMENTS -->
       </div>
     </div>
   </div>

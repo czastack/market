@@ -2,6 +2,7 @@ from .basehandler import BaseHandler
 from . import models, forms
 from .. import settings
 import os
+import datetime
 
 
 class DefaultHandler(BaseHandler):
@@ -10,6 +11,7 @@ class DefaultHandler(BaseHandler):
     def upload(self):
         if self.is_post:
             file = self.request.FILES['file']
+            file.name = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f") + file.name[file.name.rfind('.'):]
             imgfile = models.ImageFile.objects.create(user=self.user, name=file.name)
             with open(imgfile.path, 'wb+') as fp:
                 for chunk in file.chunks():

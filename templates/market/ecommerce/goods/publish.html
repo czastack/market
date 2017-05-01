@@ -252,16 +252,6 @@
         }
     });
 
-    // Enable iframe cross-domain access via redirect option:
-    $fileupload.fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
-
     $("#form").submit(function(){
       if (!this.images) {
         var $alert = $(".alert.hidden");
@@ -273,7 +263,7 @@
     });
 
     {% if images %}
-    $fileupload.fileupload('option', 'done').call($fileupload, $.Event('done'), {
+      $fileupload.fileupload('option', 'done').call($fileupload, $.Event('done'), {
       result: {{images|safe}}
     });
     {% endif %}
