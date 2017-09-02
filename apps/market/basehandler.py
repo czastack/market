@@ -13,7 +13,7 @@ class BaseHandler(AssignableHandler):
 
         if not self.logined:
             # 记录当前路径以便登录后跳转
-            self.session['refer'] = self.request.path
+            self.session['refer'] = self.request.get_full_path()
             return self.redirect(self.url('login', True))
 
     def oninit_appdata(self, data):
