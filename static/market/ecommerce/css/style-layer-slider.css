@@ -33,7 +33,7 @@
 
 /* slide 2 */
 .ls-slide2 .ls-title {
-	font: 25px 'Source Sans Pro', Arial, sans-serif;
+	font: 45px 'Source Sans Pro', Arial, sans-serif;
 	color: #fff;
 	text-align: center;
 	line-height: 1.2 !important;
@@ -52,7 +52,12 @@
 	font-style: normal;
 	padding-top: 5px;
 }
-.ls-slide2 .ls-price {
+.ls-slide2 .ls-mini-text {
+	font: 400 35px 'Source Sans Pro', Arial, sans-serif;
+	color: #fff;
+	text-align: center;
+}
+/*.ls-slide2 .ls-price {
 	font: 300 20px 'Open Sans', sans-serif;
 	color: #fff;
 	text-align: center;
@@ -75,7 +80,7 @@
 }
 .ls-slide2 .ls-price strong span {
 	font-size: 30px;
-}
+}*/
 .ls-slide2 .ls-more {
 	color: #fff;
 	display: inline-block;
@@ -93,7 +98,7 @@
 /* slide 3 */
 .ls-slide3 .ls-title {
 	font: 300 46px/59px 'Source Sans Pro', Arial, sans-serif;
-	color: #fff;
+	color: #222;
 	border-bottom: solid 1px #b90010 !important;
 	text-align: center;
 	padding-bottom: 27px;
