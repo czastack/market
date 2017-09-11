@@ -20,7 +20,7 @@
             <tr>
                 {% block td %}{% endblock %}
                 <td>
-                    <a class="btn btn-xs red" href="delete?id={{item.id}}">删除</a>
+                    {% if enable_delete %}<a class="btn btn-xs red" href="delete?id={{item.id}}">删除</a>{% endif %}
                     {% if enable_edit %}<a class="btn btn-xs blue edit" href="update?id={{item.id}}">编辑</a>{% endif %}
                 </td>
             </tr>

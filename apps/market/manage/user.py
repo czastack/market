@@ -7,6 +7,7 @@ class DefaultHandler(BaseHandler):
 
     model = models.User
     pagetitle = '用户'
+    enable_delete = False
 
     def enable(self):
         if self.is_get:

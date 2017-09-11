@@ -1,6 +1,8 @@
 {% extends "../base/index.html" %}
 {% block th %}
 	<th>头像</th>
+	<th>用户名</th>
+	<th>邮箱</th>
 	<th>昵称</th>
 	<th>姓名</th>
 	<th>电话</th>
@@ -9,11 +11,13 @@
 {% endblock %}
 {% block td %}
     <td><img class="avatar" src="{{item.userinfo.avatar.url}}"></td>
+    <td>{{item.username}}</td>
+    <td>{{item.email}}</td>
     <td>{{item.userinfo.nickname}}</td>
     <td>{{item.userinfo.fullname}}</td>
     <td>{{item.userinfo.phone}}</td>
     <td>{{item.userinfo.qq}}</td>
-    <td>{{item.is_active}}</td>
+    <td>{%if item.is_active %}正常{% else %}已停用{% endif %}</td>
 {% endblock %}
 
 {% block css %} {{block.super}}
