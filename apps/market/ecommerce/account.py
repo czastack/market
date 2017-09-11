@@ -62,3 +62,12 @@ class DefaultHandler(BaseHandler):
     def goods(self):
         data = models.Goods.objects.filter(seller=self.user)
         return self.render(data=data)
+
+    def goods_status(self):
+        if self.is_get:
+            goods = self.get_or_404(models.Goods, id=self.get_arg('id'), seller=self.user)
+            status = self.get_arg('status')
+            goods.status = status
+            goods.save()
+
+        return self.goback()

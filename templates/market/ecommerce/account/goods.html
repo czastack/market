@@ -37,6 +37,14 @@
             <a href="{{APPURL}}ecommerce/goods/update?id={{item.id}}" class="btn blue edit"><i class="fa fa-edit"></i> 编辑</a>
             <a href="{{APPURL}}ecommerce/goods/delete?id={{item.id}}" class="btn red delete"><i class="fa fa-trash-o"></i> 删除</a>
           </div>
+          <div class="btn-group btn-group-xs btn-group-solid">
+            {% if item.status == item.SOLDOUT %}
+              <a href="goods_status?status={{item.ONSALE}}&id={{item.id}}" class="btn green"><i class="fa fa-check-square-o"></i> 上架</a>
+            {% endif %}
+            {% if item.status == item.ONSALE %}
+            <a href="goods_status?status={{item.SOLDOUT}}&id={{item.id}}" class="btn red"><i class="fa fa-times"></i> 下架</a>
+            {% endif %}
+          </div>
         </td>
       </tr>
       {% endfor %}

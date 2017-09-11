@@ -219,6 +219,11 @@
     var $fileupload = $('#fileupload');
     var $images = $('#images');
 
+
+    window.onbeforeunload = function test(){
+        return "信息未发布，确定要离开吗";
+    };
+
     // $('#step1 .collapse').collapse('show');
     $('.form-right').prepend($("#id_desc_detail").parent()).prepend($("#id_desc").parent());
     $('#id_sdtype').addClass('list-inline');
