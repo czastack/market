@@ -6,7 +6,7 @@ class DefaultHandler(BaseHandler):
     __slots__ = ()
 
     model = models.User
-    pagetitle = '用户管理'
+    pagetitle = '用户'
 
     def enable(self):
         if self.is_get:

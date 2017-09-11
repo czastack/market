@@ -14,7 +14,7 @@ class BaseHandler(_BaseHandler):
 
     def index(self):
         data = self.queryset()
-        return self.render(self.template_name('index', False), data=data)
+        return self.render(self.template_name('index', False), data=data, enable_edit=hasattr(self, 'form'))
 
     def queryset(self):
         return self.model.objects.all()

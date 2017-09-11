@@ -22,6 +22,7 @@ class DefaultHandler(AssignableHandler):
         data['MANAGEURL'] = data['APPURL'] + 'manage/'
 
     def index(self):
+        carousel = models.Carousel.objects.order_by('order')[:4]
         recomments = models.RecommentGoods.objects.order_by('order')[:10]
         recomments = (item.goods for item in recomments)
         goods = models.Goods.publics().order_by('-createtime')[:12]
@@ -33,6 +34,7 @@ class DefaultHandler(AssignableHandler):
         cats = models.Category.objects.filter(parent=None)
 
         return self.render(
+            carousel=carousel,
             recomments=recomments,
             three=three,
             two=two,

@@ -21,7 +21,7 @@
                 {% block td %}{% endblock %}
                 <td>
                     <a class="btn btn-xs red" href="delete?id={{item.id}}">删除</a>
-                    <a class="btn btn-xs blue edit" href="update?id={{item.id}}">编辑</a>
+                    {% if enable_edit %}<a class="btn btn-xs blue edit" href="update?id={{item.id}}">编辑</a>{% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -31,4 +31,13 @@
     <div>没有数据</div>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block css %}{{block.super}}
+<style>
+  .preview {
+    max-width: 120px;
+    max-height: 120px;
+  }
+</style>
 {% endblock %}
