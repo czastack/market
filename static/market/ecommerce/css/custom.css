@@ -51,3 +51,13 @@
 .sticker-demand {
     background-color: #E13E45;
 }
+
+.shop-index-carousel #myCarousel {
+    height: 100%;
+}
+
+.shop-index-carousel .content-slider {
+    height: 385px;
+    background: #fff;
+    margin-top: 35px
+}
